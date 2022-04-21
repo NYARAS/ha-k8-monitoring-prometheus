@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: database-compactor
+    app.kubernetes.io/instance: thanos-compact
+    app.kubernetes.io/name: thanos-compact
+    app.kubernetes.io/version: v0.12.0
+  name: thanos-compact
+  namespace: monitoring
+spec:
+  ports:
+  - name: http
+    port: 10902
+    targetPort: http
+  selector:
+    app.kubernetes.io/component: database-compactor
+    app.kubernetes.io/instance: thanos-compact
+    app.kubernetes.io/name: thanos-compact
