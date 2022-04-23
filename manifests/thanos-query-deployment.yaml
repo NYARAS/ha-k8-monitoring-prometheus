@@ -47,7 +47,7 @@ spec:
         - --store=dnssrv+_grpc._tcp.thanos-store.thanos.svc.cluster.local
         - --store=thanos-store.monitoring.svc.cluster.local:10901
         - --store=prometheus-operated.monitoring.svc.cluster.local:10901
-        image: quay.io/thanos/thanos:v0.12.0
+        image: thanosio/thanos:v0.25.2
         livenessProbe:
           failureThreshold: 4
           httpGet:
