@@ -80,3 +80,81 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Thanos values
+thanos:
+  archive_bucket: thanos-prometheus-long-term
+  gcs_secret: thanos-gcs-credentials
+  image: quay.io/thanos/thanos:v0.28.0
+
+  query:
+    enabled: true
+    replicas: 1
+    # Other Query or Store Endpoints which need to be stacked should be specified here.
+    extraArgs: {}
+    #  store: <IP>:<PORT>
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    service:
+      type: ClusterIP
+    scrape:
+      enabled: false
+      type: LoadBalancer
+      annotations:
+        cloud.google.com/load-balancer-type: Internal
+
+  compactor:
+    enabled: true
+    replicas: 1
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+
+  store:
+    enabled: true
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 4Gi
+      requests:
+        cpu: 0.5
+        memory: 1Gi
+
+  ruler:
+    enabled: true
+    replicas: 1
+    rules_bucket: prometheus-rules-archive
+    service:
+      type: ClusterIP
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 50m
+        memory: 100Mi
+
+# prometheus values
+prometheus:
+  enabled: true
+  image: prom/prometheus:v2.4.3
+  clusterName: my-prometheus
+  replicas: 1
+  storage: 20Gi
+  resources:
+    limits:
+      cpu: "1"
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 256Mi
