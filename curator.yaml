@@ -1,0 +1,18 @@
+elasticsearch:
+  client:
+    hosts:
+      - {ES_HOST}
+    cloud_id:
+    ca_certs:
+    client_cert:
+    client_key:
+    verify_certs:
+    request_timeout: 30
+  other_settings:
+    master_only: False
+    username: {USERNAME}
+    password: {PASSWORD}
+    api_key:
+      id:
+      api_key:
+      token:
